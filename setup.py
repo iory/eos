@@ -23,7 +23,7 @@ if sys.argv[-1] == "release":
         "git tag v{:s}".format(version),
         "git push origin master --tag",
         "python setup.py sdist",
-        "twine upload dist/eos-{:s}.tar.gz".format(version),
+        "twine upload dist/extendedos-{:s}.tar.gz".format(version),
     ]
     for cmd in commands:
         print("+ {}".format(cmd))
@@ -36,7 +36,7 @@ install_requires = []
 
 
 setup(
-    name="eos",
+    name="extendedos",
     version=version,
     description="Extended os module",
     author="iory",

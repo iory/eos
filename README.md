@@ -3,7 +3,7 @@
 ## Install
 
 ```
-pip install eos
+pip install extendedos
 ```
 
 ## Quick Start
