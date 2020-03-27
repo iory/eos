@@ -65,7 +65,7 @@ def make_fancy_output_dir(dirname=None,
         with open(os.path.join(outdir, 'args.txt'), 'w') as f:
             if isinstance(args, argparse.Namespace):
                 args = vars(args)
-            f.write(json.dumps(args))
+            f.write(json.dumps(args, ensure_ascii=False, indent=4))
             f.write('\n')
 
     if save_environ:
