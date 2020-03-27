@@ -22,7 +22,7 @@ def makedirs(name, mode=0o777, exist_ok=True):
         try:
             os.makedirs(name, mode)
         except OSError:
-            if not os.path.isdir(name):
-                raise
+            if not (exist_ok and os.path.isdir(name)):
+                raise OSError
     else:
         os.makedirs(name, mode, exist_ok=exist_ok)
