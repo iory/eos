@@ -6,6 +6,11 @@ import socket
 import sys
 import tempfile
 
+try:
+    from pip._internal.operations import freeze
+except ImportError:  # pip < 10.0
+    from pip.operations import freeze
+
 
 def make_fancy_output_dir(dirname=None,
                           args=None,
@@ -13,7 +18,8 @@ def make_fancy_output_dir(dirname=None,
                           dir_suffix_name='',
                           save_environ=True,
                           save_command=True,
-                          save_gitignore=True):
+                          save_gitignore=True,
+                          save_pip=True):
     """Create fancy output directory.
 
     Parameters
@@ -32,6 +38,9 @@ def make_fancy_output_dir(dirname=None,
         if True, dump input command value to command.txt.
     save_gitignore : bool
         if True, add gitignore to output directory.
+    save_pip : bool
+        if True, save 'pip freeze' result to output directory.
+
     Returns
     -------
     outdir : str
@@ -84,6 +93,11 @@ def make_fancy_output_dir(dirname=None,
 
     if save_gitignore:
         with open(os.path.join(outdir, '.gitignore'), 'w') as f:
+            f.write('*\n')
+
+    if save_pip:
+        with open(os.path.join(outdir, 'pip_freeze.txt'), 'w') as f:
+            f.write("\n".join(list(freeze.freeze())))
             f.write('*\n')
 
     return outdir
