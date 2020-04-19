@@ -96,7 +96,7 @@ def make_fancy_output_dir(dirname=None,
             f.write('*\n')
 
     if save_pip:
-        with open(os.path.join(outdir, 'pip_freeze.txt'), 'w') as f:
+        with open(os.path.join(outdir, 'pip-freeze.txt'), 'w') as f:
             f.write("\n".join(list(freeze.freeze())))
             f.write('*\n')
 
