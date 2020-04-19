@@ -3,6 +3,7 @@ import datetime
 import json
 import os
 import socket
+import subprocess
 import sys
 import tempfile
 
@@ -11,6 +12,8 @@ try:
 except ImportError:  # pip < 10.0
     from pip.operations import freeze
 
+from eos import git
+
 
 def make_fancy_output_dir(dirname=None,
                           args=None,
@@ -18,6 +21,7 @@ def make_fancy_output_dir(dirname=None,
                           dir_suffix_name='',
                           save_environ=True,
                           save_command=True,
+                          save_git=True,
                           save_gitignore=True,
                           save_pip=True):
     """Create fancy output directory.
@@ -36,6 +40,8 @@ def make_fancy_output_dir(dirname=None,
         if True, dump environemnt values to environ.txt.
     save_command : bool
         if True, dump input command value to command.txt.
+    save_git : bool
+        if True and under git control, save git information.
     save_gitignore : bool
         if True, add gitignore to output directory.
     save_pip : bool
@@ -90,6 +96,23 @@ def make_fancy_output_dir(dirname=None,
         with open(os.path.join(outdir, 'command.txt'), 'w') as f:
             f.write(' '.join(sys.argv))
             f.write('\n')
+
+    if save_git and git.exists and git.is_under_git_control():
+        # Save `git rev-parse HEAD` (SHA of the current commit)
+        with open(os.path.join(outdir, 'git-head.txt'), 'w') as f:
+            f.write(subprocess.check_output('git rev-parse HEAD'.split()))
+
+        # Save `git status`
+        with open(os.path.join(outdir, 'git-status.txt'), 'w') as f:
+            f.write(subprocess.check_output('git status'.split()))
+
+        # Save `git log`
+        with open(os.path.join(outdir, 'git-log.txt'), 'w') as f:
+            f.write(subprocess.check_output('git log'.split()))
+
+        # Save `git diff`
+        with open(os.path.join(outdir, 'git-diff.txt'), 'w') as f:
+            f.write(subprocess.check_output('git diff'.split()))
 
     if save_gitignore:
         with open(os.path.join(outdir, '.gitignore'), 'w') as f:
