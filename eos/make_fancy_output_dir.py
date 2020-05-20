@@ -32,8 +32,9 @@ def make_fancy_output_dir(dirname=None,
         if this is None, create tmporary directory.
     args : argparse.Namespace or None
         if args is specified, dump args to created directory.
-    time_format : str
-        time format.
+    time_format : str or None
+        time format. If time_format is None,
+        time_format directory will not be created.
     dir_suffix_name : str
         suffix name of directory
     save_environ : bool
@@ -57,10 +58,15 @@ def make_fancy_output_dir(dirname=None,
     >>> from eos import make_fancy_output_dir
     >>> make_fancy_output_dir('/tmp/results')
     '/tmp/results/iory-mac-2020-03-27-18-52-49-215104-67099'
+    >>> make_fancy_output_dir(time_format=None)
+   '/tmp/vm7bwis1'
     """
-    time_str = datetime.datetime.now().strftime(time_format)
-    time_str = socket.gethostname() + '-' + time_str + '-' + str(os.getpid())
-    time_str += dir_suffix_name
+    if time_format is not None:
+        time_str = datetime.datetime.now().strftime(time_format)
+        time_str = '-'.join([socket.gethostname(), time_str, str(os.getpid())])
+        time_str += dir_suffix_name
+    else:
+        time_str = ''
     if dirname is not None:
         # create directory
         if os.path.exists(dirname):
