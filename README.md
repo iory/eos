@@ -17,4 +17,6 @@ True
 >>> from eos import make_fancy_output_dir
 >>> make_fancy_output_dir('/tmp/result')
 '/tmp/result/iory-mac-2020-03-27-19-08-17-191116-46504'
+>>> make_fancy_output_dir(time_format=None)
+'/tmp/vm7bwis1'
 ```
