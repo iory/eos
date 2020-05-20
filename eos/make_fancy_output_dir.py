@@ -99,19 +99,19 @@ def make_fancy_output_dir(dirname=None,
 
     if save_git and git.exists and git.is_under_git_control():
         # Save `git rev-parse HEAD` (SHA of the current commit)
-        with open(os.path.join(outdir, 'git-head.txt'), 'w') as f:
+        with open(os.path.join(outdir, 'git-head.txt'), 'wb') as f:
             f.write(subprocess.check_output('git rev-parse HEAD'.split()))
 
         # Save `git status`
-        with open(os.path.join(outdir, 'git-status.txt'), 'w') as f:
+        with open(os.path.join(outdir, 'git-status.txt'), 'wb') as f:
             f.write(subprocess.check_output('git status'.split()))
 
         # Save `git log`
-        with open(os.path.join(outdir, 'git-log.txt'), 'w') as f:
+        with open(os.path.join(outdir, 'git-log.txt'), 'wb') as f:
             f.write(subprocess.check_output('git log'.split()))
 
         # Save `git diff`
-        with open(os.path.join(outdir, 'git-diff.txt'), 'w') as f:
+        with open(os.path.join(outdir, 'git-diff.txt'), 'wb') as f:
             f.write(subprocess.check_output('git diff'.split()))
 
     if save_gitignore:
