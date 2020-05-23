@@ -22,6 +22,13 @@ class TestCompress(unittest.TestCase):
         tar_filename = '{}.tar.gz'.format(output_dir)
         make_tarfile(tar_filename, output_dir)
         self.assertEqual(osp.exists(tar_filename), True)
+        os.remove(tar_filename)
+
+        target_dir = osp.join(dirname, 'result')
+        output_dir = make_fancy_output_dir(target_dir)
+        tar_filename = make_tarfile(output_dir)
+        self.assertEqual(osp.exists(tar_filename), True)
+        os.remove(tar_filename)
 
         # clean test directory
         shutil.rmtree(dirname)
