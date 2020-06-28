@@ -61,4 +61,9 @@ setup(
     zip_safe=False,
     setup_requires=setup_requires,
     install_requires=install_requires,
+    entry_points={
+        "console_scripts": [
+            "run-many=eos.apps.run_many:main"
+        ]
+    },
 )
