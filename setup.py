@@ -9,7 +9,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 
-version = "0.0.10"
+version = "0.0.11"
 
 
 if sys.argv[-1] == "release":
@@ -61,4 +61,9 @@ setup(
     zip_safe=False,
     setup_requires=setup_requires,
     install_requires=install_requires,
+    entry_points={
+        "console_scripts": [
+            "run-many=eos.apps.run_many:main"
+        ]
+    },
 )
