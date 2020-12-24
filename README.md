@@ -1,5 +1,7 @@
 # eos: Extended os module
 
+[![Build Status](https://github.com/iory/eos/workflows/Run%20Tests/badge.svg?branch=master)](https://github.com/iory/eos/actions)
+
 ## Install
 
 ```
