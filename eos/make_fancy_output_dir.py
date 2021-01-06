@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tempfile
 
+
 try:
     from pip._internal.operations import freeze
 except ImportError:  # pip < 10.0
