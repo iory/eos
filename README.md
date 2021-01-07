@@ -30,3 +30,9 @@ with measure('measure_example'):
    time.sleep(1.0)
 # measure_example: 00:00:01.000574
 ```
+
+```
+from eos import current_time_str
+current_time_str()
+# '2021-01-08-07-42-12-301381'
+```
