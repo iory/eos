@@ -32,10 +32,12 @@ if sys.argv[-1] == "release":
 
 
 setup_requires = []
-install_requires = [
-    'six',
-]
 
+with open('requirements.txt') as f:
+    install_requires = []
+    for line in f:
+        req = line.split('#')[0].strip()
+        install_requires.append(req)
 
 setup(
     name="extendedos",

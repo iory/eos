@@ -1,6 +1,6 @@
 import os
 
-import six
+from eos.pycompat import PY2
 
 
 def makedirs(name, mode=0o777, exist_ok=True):
@@ -19,7 +19,7 @@ def makedirs(name, mode=0o777, exist_ok=True):
     >>> makedirs('/tmp/result_directory')
     """
     name = str(name)
-    if six.PY2:
+    if PY2:
         try:
             os.makedirs(name, mode)
         except OSError:
