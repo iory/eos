@@ -1,5 +1,6 @@
 from .pycompat import PY3
 
+
 if PY3:
     from shutil import which as _which
 else:
