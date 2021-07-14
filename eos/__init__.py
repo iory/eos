@@ -12,3 +12,4 @@ from eos.makedirs import makedirs
 from eos.measure import measure
 from eos.run_many import run_many
 from eos.time_str import current_time_str
+from eos.which import which
