@@ -14,6 +14,7 @@ except ImportError:  # pip < 10.0
     from pip.operations import freeze
 
 from eos import git
+from eos.makedirs import makedirs
 
 
 def make_fancy_output_dir(dirname=None,
@@ -24,7 +25,9 @@ def make_fancy_output_dir(dirname=None,
                           save_command=True,
                           save_git=True,
                           save_gitignore=True,
-                          save_pip=True):
+                          save_pip=True,
+                          no_save=False,
+                          exist_ok=True):
     """Create fancy output directory.
 
     Parameters
@@ -48,6 +51,8 @@ def make_fancy_output_dir(dirname=None,
         if True, add gitignore to output directory.
     save_pip : bool
         if True, save 'pip freeze' result to output directory.
+    no_save : bool
+        if True, ignore all save options.
 
     Returns
     -------
@@ -75,12 +80,15 @@ def make_fancy_output_dir(dirname=None,
                 raise RuntimeError(
                     '{} is not a directory'.format(dirname))
         outdir = os.path.join(dirname, time_str)
-        if os.path.exists(outdir):
+        if exist_ok is False and os.path.exists(outdir):
             raise RuntimeError('{} exists'.format(outdir))
         else:
-            os.makedirs(outdir)
+            makedirs(outdir)
     else:
         outdir = tempfile.mkdtemp(prefix=time_str)
+
+    if no_save is True:
+        return outdir
 
     if args is not None:
         # Save all the arguments
