@@ -24,6 +24,9 @@ def makedirs(name, mode=0o777, exist_ok=True):
             os.makedirs(name, mode)
         except OSError:
             if not (exist_ok and os.path.isdir(name)):
-                raise OSError
+                raise OSError(
+                    'Directory {} already exists. '
+                    'Set exist_ok = True if the directory can exist.'
+                    .format(name))
     else:
         os.makedirs(name, mode, exist_ok=exist_ok)
