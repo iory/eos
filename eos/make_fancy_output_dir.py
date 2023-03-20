@@ -88,6 +88,10 @@ def make_fancy_output_dir(dirname=None,
         outdir = tempfile.mkdtemp(prefix=time_str)
 
     if no_save is True:
+        # gitignore saves regardless of this option
+        if save_gitignore:
+            with open(os.path.join(outdir, '.gitignore'), 'w') as f:
+                f.write('*\n')
         return outdir
 
     if args is not None:
